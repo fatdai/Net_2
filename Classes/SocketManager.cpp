@@ -117,7 +117,7 @@ void SocketManager::recvHandler(){
             msg->length = length;
             msg->alloc();
             if (msg->length > 0) {
-                memcpy(msg->data,buf,head + length);
+                memcpy(msg->data,buf + head, length);
             }
             
             _recvMutex.lock();

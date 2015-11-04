@@ -14,7 +14,25 @@
 using namespace cocos2d;
 
 class InfoLayer : public Layer{
+    
+public:
 
+    CREATE_FUNC(InfoLayer);
+    virtual void onEnter() override;
+    
+private:
+    
+    void addTouchEventListener();
+    
+private:
+    
+    bool touchBegan(Touch* touch,Event* event);
+    void touchEnd(Touch* touch,Event* event);
+    
+    // for test
+    void addkeyboardEventListener();
+    void keyPressed(EventKeyboard::KeyCode keycode, Event* event);
+    
 };
 
 #endif /* defined(__Net_2__InfoLayer__) */

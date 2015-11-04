@@ -9,16 +9,66 @@
 #include "GameScene.h"
 #include "MsgDispatch.h"
 #include "GameMap.h"
+#include "Player.h"
+#include "Resources.h"
+#include "Utility.h"
+#include "InfoLayer.h"
+#include "GameConfig.h"
+
+GameScene* GameScene::_gameScene = nullptr;
+
+GameScene::GameScene():
+_player(nullptr),
+_gameMap(nullptr),
+_infoLayer(nullptr)
+{
+    
+}
+
+GameScene::~GameScene(){
+    CC_SAFE_RELEASE(_player);
+    CC_SAFE_RELEASE(_gameMap);
+    CC_SAFE_RELEASE(_infoLayer);
+}
+
+GameScene* GameScene::createGameScene(const msgplayer& mp){
+    
+    auto bob = new GameScene;
+    
+    if (bob->init()) {
+        
+        bob->_player = Player::createPlayer(GetTexture(IMG_player));
+        bob->_player->initData(mp.name(),mp.x(),mp.y(),mp.weight());
+        CC_SAFE_RETAIN(bob->_player);
+        bob->_player->setPosition(WINDOW_WIDTH/2,WINDOW_HEIGHT/2);
+        bob->addChild(bob->_player);
+        
+        bob->autorelease();
+        
+        return bob;
+    }
+    
+    CC_SAFE_RELEASE(bob);
+    return nullptr;
+}
+
 
 bool GameScene::init(){
     if (!Scene::init()) {
         return false;
     }
     
+    _gameScene = this;
+    
     MsgDispatch::getInstance()->registMsg(this);
     
-    auto gamemap = GameMap::create();
-    addChild(gamemap);
+    _gameMap = GameMap::create();
+    CC_SAFE_RETAIN(_gameMap);
+    addChild(_gameMap);
+    
+    _infoLayer = InfoLayer::create();
+    CC_SAFE_RETAIN(_infoLayer);
+    addChild(_infoLayer);
     
     return true;
 }
@@ -27,3 +77,4 @@ bool GameScene::init(){
 void GameScene::onReceiveMsg(Msg* msg){
     
 }
+

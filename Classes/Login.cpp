@@ -12,9 +12,13 @@
 #include "SocketManager.h"
 #include "Msg.h"
 #include "CmdCode.h"
-#include "player.pb.h"
 #include "GameScene.h"
 #include "MsgDispatch.h"
+#include "Utility.h"
+#include "Resources.h"
+#include "msguser.pb.h"
+#include "msgplayer.pb.h"
+using namespace proto;
 
 Login::Login():
 _editName(nullptr),
@@ -33,6 +37,18 @@ bool Login::init(){
     if (!Layer::init()) {
         return false;
     }
+    
+    // 加载所有游戏资源
+    auto cache = Director::getInstance()->getTextureCache();
+    cache->addImage(IMG_player);
+    cache->addImage(IMG_ball_1);
+    cache->addImage(IMG_ball_2);
+    cache->addImage(IMG_ball_3);
+    cache->addImage(IMG_ball_4);
+    cache->addImage(IMG_ball_5);
+    cache->addImage(IMG_ball_6);
+    cache->addImage(IMG_ball_7);
+    
     
     MsgDispatch::getInstance()->registMsg(this);
     NetWorkManager::getInstance()->init();
@@ -78,40 +94,62 @@ bool Login::init(){
     });
     
     
-    
     return true;
 }
 
 void Login::onReceiveMsg(Msg* msg){
-    if (msg->cmdCode == LOGIN_SUCCESS) {
-        log("----收到登录成功的消息-----");
-        Director::getInstance()->getScheduler()->performFunctionInCocosThread([](){
-            auto scene = GameScene::create();
+    
+    if (msg->cmdCode == CMD_NEW_USER_LOGIN_SUCCESS) {
+
+        msgplayer p;
+        if (!p.ParseFromArray(msg->data,msg->length)) {
+            log("%s:%d, parse msgplayer error.",__FILE__,__LINE__);
+            return;
+        }
+        
+        Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
+            auto scene = GameScene::createGameScene(p);
             Director::getInstance()->replaceScene(scene);
+            log("新用户登录成功,用户名为:%s",p.name().c_str());
+        });
+    }else if (msg->cmdCode == CMD_OLD_USER_LOGIN_SUCCESS){
+        Director::getInstance()->getScheduler()->performFunctionInCocosThread([](){
+            log("老用户登录成功");
+        });
+    }else if (msg->cmdCode == CMD_USER_ALREADY_EXIST){
+        Director::getInstance()->getScheduler()->performFunctionInCocosThread([](){
+            log("用户已存在");
         });
     }
+    delete msg;
 }
 
 void Login::startLogin(){
     
-//    if (_name.size() < 1) {
-//        return;
-//    }
-//    
-//    if (_pwd.size() < 1) {
-//        return;
-//    }
+    Trim(_name);
+    Trim(_pwd);
     
-    // data
-    player p;
-    p.set_name("zhangsan");
+    if (_name.size() < 3) {
+        ShowToast("username length < 3",3);
+        return;
+    }
     
+    if (_pwd.size() < 3) {
+        ShowToast("password length < 3",3);
+        return;
+    }
+    
+    // 准备发送数据给服务端
+    msguser mu;
+    mu.set_username(_name);
+    mu.set_password(_pwd);
+
     // 构建一个消息准备发送出去
     auto msg = new Msg;
     msg->cmdCode = CMD_LOGIN;
-    msg->length = p.ByteSize();
+    msg->length = mu.ByteSize();
     msg->alloc();
-    p.SerializeToArray(msg->data,msg->length);
+    mu.SerializeToArray(msg->data,msg->length);
     
     SocketManager::getInstance()->sendMsg(msg);
 }
@@ -123,5 +161,7 @@ void Login::editBoxTextChanged(cocos2d::extension::EditBox* editBox, const std::
         _pwd = text;
     }
 }
+
+
 
 

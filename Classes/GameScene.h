@@ -13,16 +13,52 @@
 #include "cocos2d.h"
 #include "MsgHandler.h"
 using namespace cocos2d;
+#include "msgplayer.pb.h"
+using namespace proto;
 
+
+#define Game GameScene::getGameScene()
+
+class Player;
+class InfoLayer;
+class GameMap;
 class GameScene : public Scene,public MsgHandler{
     
+    GameScene();
+    static GameScene* _gameScene;
 public:
     
+    ~GameScene();
+    
     virtual bool init() override;
-    CREATE_FUNC(GameScene);
+    
+    static GameScene* createGameScene(const msgplayer& mp);
+    
+    static GameScene* getGameScene(){
+        return _gameScene;
+    }
     
     virtual void onReceiveMsg(Msg* msg);
     
+public:
+    
+    GameMap* getGameMap(){
+        return _gameMap;
+    }
+    
+    Player* getPlayer(){
+        return _player;
+    }
+    
+    InfoLayer* getInfoLayer(){
+        return _infoLayer;
+    }
+    
+private:
+    
+    Player* _player;
+    GameMap* _gameMap;
+    InfoLayer* _infoLayer;
 };
 
 #endif /* defined(__Net_2__GameScene__) */

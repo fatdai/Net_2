@@ -15,9 +15,9 @@ bool GameMap::init(){
         return false;
     }
     
-    // for test add layercolor
-    auto bg = LayerColor::create(Color4B(255, 255, 0, 255),WINDOW_WIDTH,WINDOW_HEIGHT);
-    addChild(bg);
+    // 加载 tmx
+    auto tmxtiledMap = TMXTiledMap::create("maps/xinshoucun.tmx");
+    addChild(tmxtiledMap);
     
     return true;
 }
