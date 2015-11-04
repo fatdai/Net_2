@@ -21,4 +21,7 @@ void ShowToast(const string& text,float time);
 
 Texture2D* GetTexture(const string& name);
 
+// 返回的是毫秒数
+long Now();
+
 #endif /* defined(__Net_2__Utility__) */

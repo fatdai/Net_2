@@ -15,10 +15,23 @@
 using namespace cocos2d;
 
 class GameMap : public Layer{
+    
+    GameMap();
+    
 public:
     
+    ~GameMap();
     virtual bool init() override;
+    
     CREATE_FUNC(GameMap);
+    
+    TMXTiledMap* getTMXMap(){
+        return _tmxMap;
+    }
+    
+private:
+    
+    TMXTiledMap* _tmxMap;
     
 };
 

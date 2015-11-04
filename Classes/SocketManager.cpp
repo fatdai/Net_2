@@ -12,7 +12,6 @@
 #include "MsgDispatch.h"
 #include "Msg.h"
 
-
 //--------------------------------------------------
 short byteToShort(byte* bys){
     return (short)(bys[0] & 0xff) << 8 | (bys[1] & 0xff);

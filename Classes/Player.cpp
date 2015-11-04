@@ -7,6 +7,9 @@
 //
 
 #include "Player.h"
+#include "GameConfig.h"
+#include "GameScene.h"
+#include "GameMap.h"
 
 
 Player::Player():
@@ -14,7 +17,8 @@ _mx(0),
 _my(0),
 _weight(0),
 _nameLabel(nullptr),
-_weightLabel(nullptr)
+_weightLabel(nullptr),
+_speed(10)
 {
     
 }
@@ -55,7 +59,69 @@ void Player::initData(const string& name,float mx,float my,int weight){
     CC_SAFE_RETAIN(_weightLabel);
     _weightLabel->setPosition(getContentSize().width/2, getContentSize().height/2);
     addChild(_weightLabel);
+    
+    auto size = getContentSize();
+    _halfWidth = size.width/2;
+    _halfHeight = size.height/2;
 }
 
+
+void Player::moveUp(){
+    
+    if (_my + _speed >= Game->sMapHeight - _halfHeight) {
+        _my = Game->sMapHeight - _halfHeight;
+        return;
+    }
+    
+    _my += _speed;
+}
+
+void Player::moveDown(){
+    
+    if (_my - _speed <= _halfHeight) {
+        _my = _halfHeight;
+        return;
+    }
+    
+    _my -= _speed;
+}
+void Player::moveLeft(){
+    
+    if (_mx - _speed <= _halfWidth) {
+        _mx = _halfWidth;
+        return;
+    }
+    
+    _mx -= _speed;
+}
+
+void Player::moveRight(){
+    
+    if (_mx + _speed >= Game->sMapWidth - _halfWidth) {
+        _mx = Game->sMapWidth - _halfWidth;
+        return;
+    }
+    _mx += _speed;
+}
+
+void Player::updatePosition(){
+    
+    // 先更新地图位置,再更新角色的位置
+    float x = MAX(_mx,WINDOW_WIDTH/2);
+    float y = MAX(_my,WINDOW_HEIGHT/2);
+    
+    x = MIN(x,Game->sMapWidth-WINDOW_WIDTH/2);
+    y = MIN(y,Game->sMapHeight-WINDOW_HEIGHT/2);
+    
+    Point actualPoint(x,y);
+    Point centerOfView(WINDOW_WIDTH/2,WINDOW_HEIGHT/2);
+    Point viewpoint = centerOfView - actualPoint;
+    
+    // 设置 tmx 地图位置
+    Game->getGameMap()->getTMXMap()->setPosition(viewpoint);
+    
+    // 设置 player 位置
+    setPosition(viewpoint + Point(_mx,_my));
+}
 
 

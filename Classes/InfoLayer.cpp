@@ -7,7 +7,8 @@
 //
 
 #include "InfoLayer.h"
-
+#include "GameScene.h"
+#include "Player.h"
 
 void InfoLayer::onEnter(){
     
@@ -33,13 +34,35 @@ void InfoLayer::addkeyboardEventListener(){
 }
 
 void InfoLayer::keyPressed(EventKeyboard::KeyCode keycode, Event* event){
-    log("keypressed.....");
+    
+    if (keycode == EventKeyboard::KeyCode::KEY_UP_ARROW) {
+        // 上
+        Game->getPlayer()->moveUp();
+        Game->getPlayer()->updatePosition();
+    }else if (keycode == EventKeyboard::KeyCode::KEY_DOWN_ARROW) {
+        // 下
+        Game->getPlayer()->moveDown();
+        Game->getPlayer()->updatePosition();
+    }else if (keycode == EventKeyboard::KeyCode::KEY_LEFT_ARROW) {
+        // 左
+        Game->getPlayer()->moveLeft();
+        Game->getPlayer()->updatePosition();
+    }else if (keycode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW) {
+        // 右
+        Game->getPlayer()->moveRight();
+        Game->getPlayer()->updatePosition();
+    }
 }
 
 
 bool InfoLayer::touchBegan(Touch* touch,Event* event){
+    
     auto point = touch->getLocation();
-    log("touched :");
+    auto player = Game->getPlayer();
+    
+    // 角色移动到指定地方
+    
+    
     return true;
 }
 

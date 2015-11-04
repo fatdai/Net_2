@@ -91,6 +91,16 @@ bool Login::init(){
         log("pwd:%s",_pwd.c_str());
 
         this->startLogin();
+        
+        // for test
+//        msgplayer mp;
+//        mp.set_name("lisi");
+//        mp.set_x(10);
+//        mp.set_y(10);
+//        mp.set_weight(10);
+//        auto scene = GameScene::createGameScene(mp);
+//        Director::getInstance()->replaceScene(scene);
+        
     });
     
     
@@ -99,29 +109,35 @@ bool Login::init(){
 
 void Login::onReceiveMsg(Msg* msg){
     
-    if (msg->cmdCode == CMD_NEW_USER_LOGIN_SUCCESS) {
-
-        msgplayer p;
-        if (!p.ParseFromArray(msg->data,msg->length)) {
-            log("%s:%d, parse msgplayer error.",__FILE__,__LINE__);
-            return;
-        }
-        
+    int cmdCode = msg->cmdCode;
+    if (cmdCode == CMD_USER_ALREADY_EXIST) {
+        delete msg;
+        Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
+            ShowToast("用户已存在!",3);
+        });
+        return;
+    }
+    
+    msgplayer p;
+    if (!p.ParseFromArray(msg->data,msg->length)) {
+        log("%s:%d, parse msgplayer error.",__FILE__,__LINE__);
+        delete msg;
+        return;
+    }
+    
+    if (cmdCode == CMD_NEW_USER_LOGIN_SUCCESS) {
         Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
             auto scene = GameScene::createGameScene(p);
             Director::getInstance()->replaceScene(scene);
             log("新用户登录成功,用户名为:%s",p.name().c_str());
         });
-    }else if (msg->cmdCode == CMD_OLD_USER_LOGIN_SUCCESS){
-        Director::getInstance()->getScheduler()->performFunctionInCocosThread([](){
+    }else if (cmdCode == CMD_OLD_USER_LOGIN_SUCCESS){
+        Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
             log("老用户登录成功");
-        });
-    }else if (msg->cmdCode == CMD_USER_ALREADY_EXIST){
-        Director::getInstance()->getScheduler()->performFunctionInCocosThread([](){
-            log("用户已存在");
+            auto scene = GameScene::createGameScene(p);
+            Director::getInstance()->replaceScene(scene);
         });
     }
-    delete msg;
 }
 
 void Login::startLogin(){

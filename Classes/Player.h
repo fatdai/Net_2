@@ -26,16 +26,34 @@ public:
     
     void initData(const string& name,float mx,float my,int weight);
     
+public:
+    
+    void moveUp();
+    void moveDown();
+    void moveLeft();
+    void moveRight();
+    
+    void updatePosition();
+    
 private:
     
+    // 在地图里面的位置,左下角为原点
     float _mx,_my;
+    
     int _weight;
+    
     string _name;
     
     char _buf[32];
     
+    // 移动速度
+    float _speed;
+    
     Label* _nameLabel;
     Label* _weightLabel;
+    
+    float _halfWidth;
+    float _halfHeight;
 };
 
 #endif /* defined(__Net_2__Player__) */

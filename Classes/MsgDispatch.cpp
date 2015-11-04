@@ -9,7 +9,9 @@
 #include "MsgDispatch.h"
 #include "Msg.h"
 #include "MsgHandler.h"
+#include "CmdCode.h"
 #include "cocos2d.h"
+#include "NetWorkManager.h"
 using namespace cocos2d;
 
 
@@ -24,6 +26,12 @@ MsgDispatch* MsgDispatch::getInstance(){
 }
 
 void MsgDispatch::dispatchMsg(Msg* msg){
+    
+    int cmdCode = msg->cmdCode;
+    if (cmdCode == CMD_TEST_DELAY) {
+        NetWorkManager::getInstance()->calculateDelay();
+        return;
+    }
     
     if (_handler == nullptr) {
         log("%s:%d,No Handlers.",__FILE__,__LINE__);

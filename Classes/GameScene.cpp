@@ -13,6 +13,7 @@
 #include "Resources.h"
 #include "Utility.h"
 #include "InfoLayer.h"
+#include "NetWorkManager.h"
 #include "GameConfig.h"
 
 GameScene* GameScene::_gameScene = nullptr;
@@ -40,7 +41,6 @@ GameScene* GameScene::createGameScene(const msgplayer& mp){
         bob->_player = Player::createPlayer(GetTexture(IMG_player));
         bob->_player->initData(mp.name(),mp.x(),mp.y(),mp.weight());
         CC_SAFE_RETAIN(bob->_player);
-        bob->_player->setPosition(WINDOW_WIDTH/2,WINDOW_HEIGHT/2);
         bob->addChild(bob->_player);
         
         bob->autorelease();
@@ -54,6 +54,7 @@ GameScene* GameScene::createGameScene(const msgplayer& mp){
 
 
 bool GameScene::init(){
+    
     if (!Scene::init()) {
         return false;
     }
@@ -66,11 +67,31 @@ bool GameScene::init(){
     CC_SAFE_RETAIN(_gameMap);
     addChild(_gameMap);
     
+    auto size = _gameMap->getTMXMap()->getContentSize();
+    sMapWidth = size.width;
+    sMapHeight = size.height;
+    
     _infoLayer = InfoLayer::create();
     CC_SAFE_RETAIN(_infoLayer);
     addChild(_infoLayer);
     
+    // 1分钟对时一次
+    NetWorkManager::getInstance()->sendCurTime();
+    schedule(schedule_selector(GameScene::updateDelay),60);
+    
     return true;
+}
+
+void GameScene::updateDelay(float t){
+    NetWorkManager::getInstance()->sendCurTime();
+}
+
+void GameScene::onEnter(){
+    
+    Scene::onEnter();
+    
+    _player->updatePosition();
+    
 }
 
 

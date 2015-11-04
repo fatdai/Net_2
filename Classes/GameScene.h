@@ -31,6 +31,7 @@ public:
     ~GameScene();
     
     virtual bool init() override;
+    virtual void onEnter() override;
     
     static GameScene* createGameScene(const msgplayer& mp);
     
@@ -39,6 +40,10 @@ public:
     }
     
     virtual void onReceiveMsg(Msg* msg);
+    
+private:
+    
+    void updateDelay(float t);
     
 public:
     
@@ -59,6 +64,12 @@ private:
     Player* _player;
     GameMap* _gameMap;
     InfoLayer* _infoLayer;
+    
+public:
+    
+    // 本来可以设置成全局变量,为了方便使用
+    float sMapWidth;
+    float sMapHeight;
 };
 
 #endif /* defined(__Net_2__GameScene__) */

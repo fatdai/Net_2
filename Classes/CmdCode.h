@@ -32,4 +32,8 @@ const static short CMD_OLD_USER_LOGIN_SUCCESS = 1001;
 const static short CMD_USER_ALREADY_EXIST = 1002;
 
 
+// ------------------------------------------------------
+// 一些辅助消息  从 100 开始
+const static short CMD_TEST_DELAY = 100;
+
 #endif

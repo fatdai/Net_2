@@ -44,3 +44,14 @@ void ShowToast(const string& text,float time){
 Texture2D* GetTexture(const string& name){
     return Director::getInstance()->getTextureCache()->getTextureForKey(name);
 }
+
+
+long Now(){
+    
+    long lLastTime = 0;
+    struct timeval stCurrentTime;
+    
+    gettimeofday(&stCurrentTime,nullptr);
+    lLastTime = stCurrentTime.tv_sec*1000+stCurrentTime.tv_usec*0.001; //millseconds
+    return lLastTime;
+}
