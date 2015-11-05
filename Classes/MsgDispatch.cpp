@@ -12,11 +12,26 @@
 #include "CmdCode.h"
 #include "cocos2d.h"
 #include "NetWorkManager.h"
+#include "LoginHandler.h"
+#include "GameHandler.h"
+#include "SystemHandler.h"
+#include "BroadcastHandler.h"
 using namespace cocos2d;
 
 
 MsgDispatch* MsgDispatch::_dispatch = nullptr;
 
+
+MsgDispatch::MsgDispatch()
+{
+    _loginHandler = new LoginHandler;
+    _systemHandler = new SystemHandler;
+    _broadcastHandler = new BroadcastHandler;
+}
+
+MsgDispatch::~MsgDispatch(){
+    
+}
 
 MsgDispatch* MsgDispatch::getInstance(){
     if (_dispatch == nullptr) {
@@ -28,6 +43,13 @@ MsgDispatch* MsgDispatch::getInstance(){
 void MsgDispatch::dispatchMsg(Msg* msg){
     
     int cmdCode = msg->cmdCode;
+    
+    // 1-200 为整个游戏系统相关的消息
+    if (cmdCode < 200) {
+        
+    }
+    
+    
     if (cmdCode == CMD_TEST_DELAY) {
         NetWorkManager::getInstance()->calculateDelay();
         return;
@@ -40,9 +62,9 @@ void MsgDispatch::dispatchMsg(Msg* msg){
     _handler->onReceiveMsg(msg);
 }
 
-void MsgDispatch::registMsg(MsgHandler* handler){
-    _handler = handler;
-}
+//void MsgDispatch::registMsg(MsgHandler* handler){
+//    _handler = handler;
+//}
 
 
 //void MsgDispatch::registMsg(MsgHandler* handler){
