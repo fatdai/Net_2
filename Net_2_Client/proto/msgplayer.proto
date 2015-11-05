@@ -1,4 +1,9 @@
 package proto;
-message player{
+
+// 玩家
+message msgplayer{
 	required string name = 1;
+	required float x = 2;
+	required float y = 3;
+	required int32 weight = 4; 
 };

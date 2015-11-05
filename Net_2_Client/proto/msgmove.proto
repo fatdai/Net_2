@@ -1,0 +1,11 @@
+package proto;
+
+message msgmove{
+	required float sx = 1;
+	required float sy = 2;
+	required float speed = 3;
+	required float ex = 4;
+	required float ey = 5;
+	optional int64 delay = 6;
+};
+

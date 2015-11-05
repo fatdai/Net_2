@@ -1,0 +1,7 @@
+package proto;
+
+message msgtime{
+	optional long clientTime = 1;
+	optional long serverTime = 2;
+};
+

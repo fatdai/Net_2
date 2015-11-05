@@ -12,9 +12,12 @@
 #include "Player.h"
 #include "Resources.h"
 #include "Utility.h"
+#include "CmdCode.h"
+#include "Msg.h"
 #include "InfoLayer.h"
 #include "NetWorkManager.h"
 #include "GameConfig.h"
+#include "msgmoveRes.pb.h"
 
 GameScene* GameScene::_gameScene = nullptr;
 
@@ -87,15 +90,30 @@ void GameScene::updateDelay(float t){
 }
 
 void GameScene::onEnter(){
-    
     Scene::onEnter();
-    
-    _player->updatePosition();
-    
+    _player->scheduleUpdate();
 }
 
 
 void GameScene::onReceiveMsg(Msg* msg){
-    
+    int cmdCode = msg->cmdCode;
+    if (cmdCode == CMD_MOVE_RES) {
+        msgmoveRes mmr;
+        if (!mmr.ParseFromArray(msg->data,msg->length)) {
+            log("%s:%d, Parse msgmoveRes Error.",__FILE__,__LINE__);
+            delete msg;
+            return;
+        }
+        delete msg;
+        
+        Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
+            // 让player在 规定时间内移动到目标位置
+            Vec2 dir(mmr.dstx()-_player->getMx(),mmr.dsty()-_player->getMy());
+            _player->setNewSpeed(dir.length()/mmr.time());
+            dir.normalize();
+            _player->startServerMove(dir,mmr.time());
+            log("serverTime:%f",mmr.time());
+        });
+    }
 }
 

@@ -26,6 +26,8 @@ public:
     
     void initData(const string& name,float mx,float my,int weight);
     
+    virtual void update(float dt) override;
+    
 public:
     
     void moveUp();
@@ -34,6 +36,35 @@ public:
     void moveRight();
     
     void updatePosition();
+    
+    float getMx(){
+        return _mx;
+    }
+    float getMy(){
+        return _my;
+    }
+    
+    float getSpeed(){
+        return _speed;
+    }
+    
+    void setNewSpeed(float newSpeed){
+        _newSpeed = newSpeed;
+    }
+    
+    /**
+     *  按照 dir 方向,移动 time 时间
+     *
+     *  @param dir  方向 (单位向量)
+     *  @param time 需要时间
+     */
+    void startClientMove(const Point& dir,float time);
+    
+    void startServerMove(const Point& dir,float time);
+    
+    // 移动到某处
+    //void moveTo(float dstx,float dsty,float time);
+    
     
 private:
     
@@ -49,11 +80,29 @@ private:
     // 移动速度
     float _speed;
     
+    // 服务端返回后重新计算的速度
+    float _newSpeed;
+    
     Label* _nameLabel;
     Label* _weightLabel;
     
     float _halfWidth;
     float _halfHeight;
+    
+    // 是否是客户端进行模拟移动
+    bool _clientMove;
+    bool _serverMove;
+
+    
+    // 移动速度
+    float _vx,_vy;
+    
+    // 需要移动的时间
+    float _moveTime;
+    
+    // 已经移动的时间
+    float _elapseTime;
+    
 };
 
 #endif /* defined(__Net_2__Player__) */

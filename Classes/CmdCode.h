@@ -17,6 +17,7 @@
 // 登陆请求
 const static short CMD_LOGIN = 200;
 
+const static short CMD_MOVE = 201;
 
 
 // ------------------------------------------------------
@@ -31,6 +32,8 @@ const static short CMD_OLD_USER_LOGIN_SUCCESS = 1001;
 // 玩家已存在
 const static short CMD_USER_ALREADY_EXIST = 1002;
 
+// 移动响应
+const static short CMD_MOVE_RES = 1003;
 
 // ------------------------------------------------------
 // 一些辅助消息  从 100 开始

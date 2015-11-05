@@ -12,13 +12,20 @@
 #include "GameMap.h"
 
 
+enum{
+    TAG_ACTION_MOVE,
+};
+
 Player::Player():
 _mx(0),
 _my(0),
 _weight(0),
 _nameLabel(nullptr),
 _weightLabel(nullptr),
-_speed(10)
+_speed(10),
+_newSpeed(0),
+_clientMove(false),
+_serverMove(false)
 {
     
 }
@@ -65,6 +72,44 @@ void Player::initData(const string& name,float mx,float my,int weight){
     _halfHeight = size.height/2;
 }
 
+void Player::update(float dt){
+
+    if (_clientMove) {
+        _mx += _vx;
+        _my += _vy;
+        _elapseTime += dt;
+        if (_elapseTime >= _moveTime) {
+            _clientMove = false;
+        }
+    }else if (_serverMove){
+        _mx += _vx;
+        _my += _vy;
+        _elapseTime += dt;
+        if (_elapseTime >= _moveTime) {
+            _serverMove = true;
+        }
+    }
+    
+    updatePosition();
+}
+
+void Player::startClientMove(const Point& dir,float time){
+    _clientMove = true;
+    _serverMove = false;
+    _vx = dir.x * _speed;
+    _vy = dir.y * _speed;
+    _moveTime = time;
+    _elapseTime = 0;
+}
+
+void Player::startServerMove(const Point& dir,float time){
+    _serverMove = true;
+    _clientMove = false;
+    _vx = dir.x * _newSpeed;
+    _vy = dir.y * _newSpeed;
+    _moveTime = time;
+    _elapseTime = 0;
+}
 
 void Player::moveUp(){
     
@@ -124,4 +169,16 @@ void Player::updatePosition(){
     setPosition(viewpoint + Point(_mx,_my));
 }
 
+//void Player::moveTo(float dstx,float dsty,float time){
+//    
+//    // 取消之前的运动
+//    auto oldmove = getActionByTag(TAG_ACTION_MOVE);
+//    if (oldmove) {
+//        getActionManager()->removeAction(oldmove);
+//    }
+//    
+//    auto move = MoveTo::create(time,Point(dstx,dsty));
+//    move->setTag(TAG_ACTION_MOVE);
+//    runAction(move);
+//}
 

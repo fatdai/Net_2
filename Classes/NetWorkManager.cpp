@@ -47,8 +47,10 @@ void NetWorkManager::sendCurTime(){
 }
 
 void NetWorkManager::calculateDelay(){
-    _delay = (Now() - _lastTime)/2000.0f;
-    log("_delay is : %f",_delay);
+    Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
+        _delay = (Now() - _lastTime)/2000.0f;
+        log("_delay is : %f",_delay);
+    });
 }
 
 

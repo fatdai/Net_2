@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="ground" tilewidth="32" tileheight="32" tilecount="6">
+  <image source="ground.png" width="64" height="96"/>
+ </tileset>
+ <tileset firstgid="7" name="ground_2" tilewidth="32" tileheight="32" tilecount="6">
+  <image source="ground_2.png" width="64" height="96"/>
+ </tileset>
+ <layer name="ground" width="40" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt0KENADAMxMBIabv/yM0GgW9gYJlfV9WZGvo7PfDTPvrpR3DSTz/i0z766Udw0k8/4tM++ulHcNJPP+LTPts/jbwVGQ==
+  </data>
+ </layer>
+ <layer name="border" width="40" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt2LEJACAMBdF02X9jF7BQr8hH7kHqXBXErqoOn1T2MfYx9jHpd+hmr337nfa9s4+xj7GPsY/56X0wwT7GPsY+Zvrf52QWWo0EmQ==
+  </data>
+ </layer>
+</map>
