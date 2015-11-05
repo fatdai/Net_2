@@ -34,6 +34,7 @@ void protobuf_AssignDesc_msgplayer_2eproto();
 void protobuf_ShutdownFile_msgplayer_2eproto();
 
 class msgplayer;
+class msgplayer_array;
 
 // ===================================================================
 
@@ -123,6 +124,18 @@ class msgplayer : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 weight() const;
   inline void set_weight(::google::protobuf::int32 value);
 
+  // required string playerId = 5;
+  inline bool has_playerid() const;
+  inline void clear_playerid();
+  static const int kPlayerIdFieldNumber = 5;
+  inline const ::std::string& playerid() const;
+  inline void set_playerid(const ::std::string& value);
+  inline void set_playerid(const char* value);
+  inline void set_playerid(const char* value, size_t size);
+  inline ::std::string* mutable_playerid();
+  inline ::std::string* release_playerid();
+  inline void set_allocated_playerid(::std::string* playerid);
+
   // @@protoc_insertion_point(class_scope:proto.msgplayer)
  private:
   inline void set_has_name();
@@ -133,6 +146,8 @@ class msgplayer : public ::google::protobuf::Message {
   inline void clear_has_y();
   inline void set_has_weight();
   inline void clear_has_weight();
+  inline void set_has_playerid();
+  inline void clear_has_playerid();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -141,6 +156,7 @@ class msgplayer : public ::google::protobuf::Message {
   ::std::string* name_;
   float x_;
   float y_;
+  ::std::string* playerid_;
   ::google::protobuf::int32 weight_;
   friend void  protobuf_AddDesc_msgplayer_2eproto();
   friend void protobuf_AssignDesc_msgplayer_2eproto();
@@ -148,6 +164,88 @@ class msgplayer : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static msgplayer* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class msgplayer_array : public ::google::protobuf::Message {
+ public:
+  msgplayer_array();
+  virtual ~msgplayer_array();
+
+  msgplayer_array(const msgplayer_array& from);
+
+  inline msgplayer_array& operator=(const msgplayer_array& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const msgplayer_array& default_instance();
+
+  void Swap(msgplayer_array* other);
+
+  // implements Message ----------------------------------------------
+
+  msgplayer_array* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const msgplayer_array& from);
+  void MergeFrom(const msgplayer_array& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .proto.msgplayer mp = 1;
+  inline int mp_size() const;
+  inline void clear_mp();
+  static const int kMpFieldNumber = 1;
+  inline const ::proto::msgplayer& mp(int index) const;
+  inline ::proto::msgplayer* mutable_mp(int index);
+  inline ::proto::msgplayer* add_mp();
+  inline const ::google::protobuf::RepeatedPtrField< ::proto::msgplayer >&
+      mp() const;
+  inline ::google::protobuf::RepeatedPtrField< ::proto::msgplayer >*
+      mutable_mp();
+
+  // @@protoc_insertion_point(class_scope:proto.msgplayer_array)
+ private:
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::google::protobuf::RepeatedPtrField< ::proto::msgplayer > mp_;
+  friend void  protobuf_AddDesc_msgplayer_2eproto();
+  friend void protobuf_AssignDesc_msgplayer_2eproto();
+  friend void protobuf_ShutdownFile_msgplayer_2eproto();
+
+  void InitAsDefaultInstance();
+  static msgplayer_array* default_instance_;
 };
 // ===================================================================
 
@@ -302,6 +400,116 @@ inline void msgplayer::set_weight(::google::protobuf::int32 value) {
   set_has_weight();
   weight_ = value;
   // @@protoc_insertion_point(field_set:proto.msgplayer.weight)
+}
+
+// required string playerId = 5;
+inline bool msgplayer::has_playerid() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void msgplayer::set_has_playerid() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void msgplayer::clear_has_playerid() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void msgplayer::clear_playerid() {
+  if (playerid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    playerid_->clear();
+  }
+  clear_has_playerid();
+}
+inline const ::std::string& msgplayer::playerid() const {
+  // @@protoc_insertion_point(field_get:proto.msgplayer.playerId)
+  return *playerid_;
+}
+inline void msgplayer::set_playerid(const ::std::string& value) {
+  set_has_playerid();
+  if (playerid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    playerid_ = new ::std::string;
+  }
+  playerid_->assign(value);
+  // @@protoc_insertion_point(field_set:proto.msgplayer.playerId)
+}
+inline void msgplayer::set_playerid(const char* value) {
+  set_has_playerid();
+  if (playerid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    playerid_ = new ::std::string;
+  }
+  playerid_->assign(value);
+  // @@protoc_insertion_point(field_set_char:proto.msgplayer.playerId)
+}
+inline void msgplayer::set_playerid(const char* value, size_t size) {
+  set_has_playerid();
+  if (playerid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    playerid_ = new ::std::string;
+  }
+  playerid_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:proto.msgplayer.playerId)
+}
+inline ::std::string* msgplayer::mutable_playerid() {
+  set_has_playerid();
+  if (playerid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    playerid_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:proto.msgplayer.playerId)
+  return playerid_;
+}
+inline ::std::string* msgplayer::release_playerid() {
+  clear_has_playerid();
+  if (playerid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = playerid_;
+    playerid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void msgplayer::set_allocated_playerid(::std::string* playerid) {
+  if (playerid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete playerid_;
+  }
+  if (playerid) {
+    set_has_playerid();
+    playerid_ = playerid;
+  } else {
+    clear_has_playerid();
+    playerid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:proto.msgplayer.playerId)
+}
+
+// -------------------------------------------------------------------
+
+// msgplayer_array
+
+// repeated .proto.msgplayer mp = 1;
+inline int msgplayer_array::mp_size() const {
+  return mp_.size();
+}
+inline void msgplayer_array::clear_mp() {
+  mp_.Clear();
+}
+inline const ::proto::msgplayer& msgplayer_array::mp(int index) const {
+  // @@protoc_insertion_point(field_get:proto.msgplayer_array.mp)
+  return mp_.Get(index);
+}
+inline ::proto::msgplayer* msgplayer_array::mutable_mp(int index) {
+  // @@protoc_insertion_point(field_mutable:proto.msgplayer_array.mp)
+  return mp_.Mutable(index);
+}
+inline ::proto::msgplayer* msgplayer_array::add_mp() {
+  // @@protoc_insertion_point(field_add:proto.msgplayer_array.mp)
+  return mp_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::proto::msgplayer >&
+msgplayer_array::mp() const {
+  // @@protoc_insertion_point(field_list:proto.msgplayer_array.mp)
+  return mp_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::proto::msgplayer >*
+msgplayer_array::mutable_mp() {
+  // @@protoc_insertion_point(field_mutable_list:proto.msgplayer_array.mp)
+  return &mp_;
 }
 
 

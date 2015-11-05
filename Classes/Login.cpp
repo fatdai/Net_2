@@ -118,25 +118,41 @@ void Login::onReceiveMsg(Msg* msg){
         return;
     }
     
-    msgplayer p;
-    if (!p.ParseFromArray(msg->data,msg->length)) {
-        log("%s:%d, parse msgplayer error.",__FILE__,__LINE__);
-        delete msg;
-        return;
-    }
-    
     if (cmdCode == CMD_NEW_USER_LOGIN_SUCCESS) {
+        
+        msgplayer p;
+        if (!p.ParseFromArray(msg->data,msg->length)) {
+            log("%s:%d, parse msgplayer error.",__FILE__,__LINE__);
+            delete msg;
+            return;
+        }
+        
         Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
             auto scene = GameScene::createGameScene(p);
             Director::getInstance()->replaceScene(scene);
             log("新用户登录成功,用户名为:%s",p.name().c_str());
         });
     }else if (cmdCode == CMD_OLD_USER_LOGIN_SUCCESS){
+        
+        msgplayer p;
+        if (!p.ParseFromArray(msg->data,msg->length)) {
+            log("%s:%d, parse msgplayer error.",__FILE__,__LINE__);
+            delete msg;
+            return;
+        }
+        
         Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
             log("老用户登录成功");
             auto scene = GameScene::createGameScene(p);
             Director::getInstance()->replaceScene(scene);
         });
+    }else{
+        char buf[64];
+        sprintf(buf,"未处理的名字:%d\n",cmdCode);
+        Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
+            ShowToast(buf,3);
+        });
+        delete msg;
     }
 }
 

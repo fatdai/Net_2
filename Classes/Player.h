@@ -24,7 +24,7 @@ public:
     ~Player();
     static Player* createPlayer(Texture2D* texture);
     
-    void initData(const string& name,float mx,float my,int weight);
+    void initData(const string& playerId,const string& name,float mx,float my,int weight);
     
     virtual void update(float dt) override;
     
@@ -42,6 +42,10 @@ public:
     }
     float getMy(){
         return _my;
+    }
+    
+    const string& getPlayerId(){
+        return _playerId;
     }
     
     float getSpeed(){
@@ -70,7 +74,7 @@ private:
     
     // 在地图里面的位置,左下角为原点
     float _mx,_my;
-    
+    string _playerId; // 唯一标识符
     int _weight;
     
     string _name;

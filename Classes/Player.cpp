@@ -22,7 +22,7 @@ _my(0),
 _weight(0),
 _nameLabel(nullptr),
 _weightLabel(nullptr),
-_speed(10),
+_speed(200),
 _newSpeed(0),
 _clientMove(false),
 _serverMove(false)
@@ -46,8 +46,9 @@ Player* Player::createPlayer(Texture2D* texture){
 }
 
 
-void Player::initData(const string& name,float mx,float my,int weight){
+void Player::initData(const string& playerId,const string& name,float mx,float my,int weight){
     
+    _playerId = playerId;
     _name = name;
     _mx = mx;
     _my = my;
@@ -75,18 +76,21 @@ void Player::initData(const string& name,float mx,float my,int weight){
 void Player::update(float dt){
 
     if (_clientMove) {
-        _mx += _vx;
-        _my += _vy;
+        _mx += _vx * dt;
+        _my += _vy * dt;
         _elapseTime += dt;
         if (_elapseTime >= _moveTime) {
             _clientMove = false;
         }
-    }else if (_serverMove){
-        _mx += _vx;
-        _my += _vy;
+    }
+    
+    
+    if (_serverMove){
+        _mx += _vx * dt;
+        _my += _vy * dt;
         _elapseTime += dt;
         if (_elapseTime >= _moveTime) {
-            _serverMove = true;
+            _serverMove = false;
         }
     }
     
@@ -103,6 +107,7 @@ void Player::startClientMove(const Point& dir,float time){
 }
 
 void Player::startServerMove(const Point& dir,float time){
+    log("_newSpeed : %f",_newSpeed);
     _serverMove = true;
     _clientMove = false;
     _vx = dir.x * _newSpeed;

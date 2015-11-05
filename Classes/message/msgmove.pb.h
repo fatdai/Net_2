@@ -90,50 +90,64 @@ class msgmove : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required float sx = 1;
+  // required string playerId = 1;
+  inline bool has_playerid() const;
+  inline void clear_playerid();
+  static const int kPlayerIdFieldNumber = 1;
+  inline const ::std::string& playerid() const;
+  inline void set_playerid(const ::std::string& value);
+  inline void set_playerid(const char* value);
+  inline void set_playerid(const char* value, size_t size);
+  inline ::std::string* mutable_playerid();
+  inline ::std::string* release_playerid();
+  inline void set_allocated_playerid(::std::string* playerid);
+
+  // required float sx = 2;
   inline bool has_sx() const;
   inline void clear_sx();
-  static const int kSxFieldNumber = 1;
+  static const int kSxFieldNumber = 2;
   inline float sx() const;
   inline void set_sx(float value);
 
-  // required float sy = 2;
+  // required float sy = 3;
   inline bool has_sy() const;
   inline void clear_sy();
-  static const int kSyFieldNumber = 2;
+  static const int kSyFieldNumber = 3;
   inline float sy() const;
   inline void set_sy(float value);
 
-  // required float speed = 3;
+  // required float speed = 4;
   inline bool has_speed() const;
   inline void clear_speed();
-  static const int kSpeedFieldNumber = 3;
+  static const int kSpeedFieldNumber = 4;
   inline float speed() const;
   inline void set_speed(float value);
 
-  // required float ex = 4;
+  // required float ex = 5;
   inline bool has_ex() const;
   inline void clear_ex();
-  static const int kExFieldNumber = 4;
+  static const int kExFieldNumber = 5;
   inline float ex() const;
   inline void set_ex(float value);
 
-  // required float ey = 5;
+  // required float ey = 6;
   inline bool has_ey() const;
   inline void clear_ey();
-  static const int kEyFieldNumber = 5;
+  static const int kEyFieldNumber = 6;
   inline float ey() const;
   inline void set_ey(float value);
 
-  // optional int64 delay = 6;
+  // optional int64 delay = 7;
   inline bool has_delay() const;
   inline void clear_delay();
-  static const int kDelayFieldNumber = 6;
+  static const int kDelayFieldNumber = 7;
   inline ::google::protobuf::int64 delay() const;
   inline void set_delay(::google::protobuf::int64 value);
 
   // @@protoc_insertion_point(class_scope:proto.msgmove)
  private:
+  inline void set_has_playerid();
+  inline void clear_has_playerid();
   inline void set_has_sx();
   inline void clear_has_sx();
   inline void set_has_sy();
@@ -151,6 +165,7 @@ class msgmove : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
+  ::std::string* playerid_;
   float sx_;
   float sy_;
   float speed_;
@@ -171,15 +186,91 @@ class msgmove : public ::google::protobuf::Message {
 
 // msgmove
 
-// required float sx = 1;
-inline bool msgmove::has_sx() const {
+// required string playerId = 1;
+inline bool msgmove::has_playerid() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void msgmove::set_has_sx() {
+inline void msgmove::set_has_playerid() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void msgmove::clear_has_sx() {
+inline void msgmove::clear_has_playerid() {
   _has_bits_[0] &= ~0x00000001u;
+}
+inline void msgmove::clear_playerid() {
+  if (playerid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    playerid_->clear();
+  }
+  clear_has_playerid();
+}
+inline const ::std::string& msgmove::playerid() const {
+  // @@protoc_insertion_point(field_get:proto.msgmove.playerId)
+  return *playerid_;
+}
+inline void msgmove::set_playerid(const ::std::string& value) {
+  set_has_playerid();
+  if (playerid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    playerid_ = new ::std::string;
+  }
+  playerid_->assign(value);
+  // @@protoc_insertion_point(field_set:proto.msgmove.playerId)
+}
+inline void msgmove::set_playerid(const char* value) {
+  set_has_playerid();
+  if (playerid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    playerid_ = new ::std::string;
+  }
+  playerid_->assign(value);
+  // @@protoc_insertion_point(field_set_char:proto.msgmove.playerId)
+}
+inline void msgmove::set_playerid(const char* value, size_t size) {
+  set_has_playerid();
+  if (playerid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    playerid_ = new ::std::string;
+  }
+  playerid_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:proto.msgmove.playerId)
+}
+inline ::std::string* msgmove::mutable_playerid() {
+  set_has_playerid();
+  if (playerid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    playerid_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:proto.msgmove.playerId)
+  return playerid_;
+}
+inline ::std::string* msgmove::release_playerid() {
+  clear_has_playerid();
+  if (playerid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = playerid_;
+    playerid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void msgmove::set_allocated_playerid(::std::string* playerid) {
+  if (playerid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete playerid_;
+  }
+  if (playerid) {
+    set_has_playerid();
+    playerid_ = playerid;
+  } else {
+    clear_has_playerid();
+    playerid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:proto.msgmove.playerId)
+}
+
+// required float sx = 2;
+inline bool msgmove::has_sx() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void msgmove::set_has_sx() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void msgmove::clear_has_sx() {
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline void msgmove::clear_sx() {
   sx_ = 0;
@@ -195,15 +286,15 @@ inline void msgmove::set_sx(float value) {
   // @@protoc_insertion_point(field_set:proto.msgmove.sx)
 }
 
-// required float sy = 2;
+// required float sy = 3;
 inline bool msgmove::has_sy() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void msgmove::set_has_sy() {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
 }
 inline void msgmove::clear_has_sy() {
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline void msgmove::clear_sy() {
   sy_ = 0;
@@ -219,15 +310,15 @@ inline void msgmove::set_sy(float value) {
   // @@protoc_insertion_point(field_set:proto.msgmove.sy)
 }
 
-// required float speed = 3;
+// required float speed = 4;
 inline bool msgmove::has_speed() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
+  return (_has_bits_[0] & 0x00000008u) != 0;
 }
 inline void msgmove::set_has_speed() {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
 }
 inline void msgmove::clear_has_speed() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void msgmove::clear_speed() {
   speed_ = 0;
@@ -243,15 +334,15 @@ inline void msgmove::set_speed(float value) {
   // @@protoc_insertion_point(field_set:proto.msgmove.speed)
 }
 
-// required float ex = 4;
+// required float ex = 5;
 inline bool msgmove::has_ex() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+  return (_has_bits_[0] & 0x00000010u) != 0;
 }
 inline void msgmove::set_has_ex() {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000010u;
 }
 inline void msgmove::clear_has_ex() {
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline void msgmove::clear_ex() {
   ex_ = 0;
@@ -267,15 +358,15 @@ inline void msgmove::set_ex(float value) {
   // @@protoc_insertion_point(field_set:proto.msgmove.ex)
 }
 
-// required float ey = 5;
+// required float ey = 6;
 inline bool msgmove::has_ey() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
+  return (_has_bits_[0] & 0x00000020u) != 0;
 }
 inline void msgmove::set_has_ey() {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000020u;
 }
 inline void msgmove::clear_has_ey() {
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline void msgmove::clear_ey() {
   ey_ = 0;
@@ -291,15 +382,15 @@ inline void msgmove::set_ey(float value) {
   // @@protoc_insertion_point(field_set:proto.msgmove.ey)
 }
 
-// optional int64 delay = 6;
+// optional int64 delay = 7;
 inline bool msgmove::has_delay() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
+  return (_has_bits_[0] & 0x00000040u) != 0;
 }
 inline void msgmove::set_has_delay() {
-  _has_bits_[0] |= 0x00000020u;
+  _has_bits_[0] |= 0x00000040u;
 }
 inline void msgmove::clear_has_delay() {
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline void msgmove::clear_delay() {
   delay_ = GOOGLE_LONGLONG(0);

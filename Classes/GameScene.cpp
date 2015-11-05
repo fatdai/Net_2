@@ -17,14 +17,18 @@
 #include "InfoLayer.h"
 #include "NetWorkManager.h"
 #include "GameConfig.h"
+#include "SocketManager.h"
 #include "msgmoveRes.pb.h"
+#include "msgdelay.pb.h"
+using namespace proto;
 
 GameScene* GameScene::_gameScene = nullptr;
 
 GameScene::GameScene():
 _player(nullptr),
 _gameMap(nullptr),
-_infoLayer(nullptr)
+_infoLayer(nullptr),
+_gameStarted(false)
 {
     
 }
@@ -42,7 +46,7 @@ GameScene* GameScene::createGameScene(const msgplayer& mp){
     if (bob->init()) {
         
         bob->_player = Player::createPlayer(GetTexture(IMG_player));
-        bob->_player->initData(mp.name(),mp.x(),mp.y(),mp.weight());
+        bob->_player->initData(mp.playerid(),mp.name(),mp.x(),mp.y(),mp.weight());
         CC_SAFE_RETAIN(bob->_player);
         bob->addChild(bob->_player);
         
@@ -82,7 +86,31 @@ bool GameScene::init(){
     NetWorkManager::getInstance()->sendCurTime();
     schedule(schedule_selector(GameScene::updateDelay),60);
     
+    schedule(schedule_selector(GameScene::checkeGameStart),0.02f);
+    
     return true;
+}
+
+void GameScene::checkeGameStart(float t){
+    if (NetWorkManager::getInstance()->getDelay() > 0.0001) {
+        unschedule(schedule_selector(GameScene::checkeGameStart));
+        _gameStarted = true;
+        
+        // 告诉服务端,当前的延迟是多少
+        msgdelay md;
+        md.set_playerid(_player->getPlayerId());
+        md.set_delay(NetWorkManager::getInstance()->getDelay());
+        
+        auto msg = new Msg;
+        msg->cmdCode = CMD_DELAY;
+        msg->length = md.ByteSize();
+        msg->alloc();
+        md.SerializeToArray(msg->data,msg->length);
+        
+        SocketManager::getInstance()->sendMsg(msg);
+        
+        ShowToast("游戏开始....",3);
+    }
 }
 
 void GameScene::updateDelay(float t){
@@ -90,7 +118,11 @@ void GameScene::updateDelay(float t){
 }
 
 void GameScene::onEnter(){
+    
     Scene::onEnter();
+    
+
+    
     _player->scheduleUpdate();
 }
 
@@ -114,6 +146,35 @@ void GameScene::onReceiveMsg(Msg* msg){
             _player->startServerMove(dir,mmr.time());
             log("serverTime:%f",mmr.time());
         });
+        return;
+    }else if(cmdCode == CMD_BC_NEW_PLAYER_JOIN){
+        
+        msgplayer mp;
+        if (!mp.ParseFromArray(msg->data,msg->length)) {
+            log("%s:%d, Parse msgplayer Error.",__FILE__,__LINE__);
+            delete msg;
+            return;
+        }
+        delete msg;
+        
+        Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
+            auto newplayer = Player::createPlayer(GetTexture(IMG_player));
+            newplayer->initData(mp.playerid(),mp.name(),mp.x(),mp.y(),mp.weight());
+            Game->addChild(newplayer);
+            newplayer->scheduleUpdate();
+            _otherPlayers.push_back(newplayer);
+        });
+        
+        return;
+    }else if(cmdCode == CMD_RES_OTHERPLAYERS){
+        log("----收到CMD_RES_OTHERPLAYERS........");
+    }else{
+        char buf[64];
+        sprintf(buf,"未处理的名字:%d\n",cmdCode);
+        Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
+            ShowToast(buf,3);
+        });
+        delete msg;
     }
 }
 

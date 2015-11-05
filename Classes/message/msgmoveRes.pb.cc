@@ -34,10 +34,11 @@ void protobuf_AssignDesc_msgmoveRes_2eproto() {
       "msgmoveRes.proto");
   GOOGLE_CHECK(file != NULL);
   msgmoveRes_descriptor_ = file->message_type(0);
-  static const int msgmoveRes_offsets_[3] = {
+  static const int msgmoveRes_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msgmoveRes, time_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msgmoveRes, dstx_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msgmoveRes, dsty_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msgmoveRes, playerid_),
   };
   msgmoveRes_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -80,9 +81,9 @@ void protobuf_AddDesc_msgmoveRes_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\020msgmoveRes.proto\022\005proto\"6\n\nmsgmoveRes\022"
+    "\n\020msgmoveRes.proto\022\005proto\"H\n\nmsgmoveRes\022"
     "\014\n\004time\030\001 \002(\002\022\014\n\004dstX\030\002 \002(\002\022\014\n\004dstY\030\003 \002("
-    "\002", 81);
+    "\002\022\020\n\010playerId\030\004 \002(\t", 99);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "msgmoveRes.proto", &protobuf_RegisterTypes);
   msgmoveRes::default_instance_ = new msgmoveRes();
@@ -103,6 +104,7 @@ struct StaticDescriptorInitializer_msgmoveRes_2eproto {
 const int msgmoveRes::kTimeFieldNumber;
 const int msgmoveRes::kDstXFieldNumber;
 const int msgmoveRes::kDstYFieldNumber;
+const int msgmoveRes::kPlayerIdFieldNumber;
 #endif  // !_MSC_VER
 
 msgmoveRes::msgmoveRes()
@@ -122,10 +124,12 @@ msgmoveRes::msgmoveRes(const msgmoveRes& from)
 }
 
 void msgmoveRes::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   time_ = 0;
   dstx_ = 0;
   dsty_ = 0;
+  playerid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -135,6 +139,9 @@ msgmoveRes::~msgmoveRes() {
 }
 
 void msgmoveRes::SharedDtor() {
+  if (playerid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete playerid_;
+  }
   if (this != default_instance_) {
   }
 }
@@ -171,7 +178,15 @@ void msgmoveRes::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  ZR_(time_, dsty_);
+  if (_has_bits_[0 / 32] & 15) {
+    ZR_(time_, dstx_);
+    dsty_ = 0;
+    if (has_playerid()) {
+      if (playerid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        playerid_->clear();
+      }
+    }
+  }
 
 #undef OFFSET_OF_FIELD_
 #undef ZR_
@@ -230,6 +245,23 @@ bool msgmoveRes::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(34)) goto parse_playerId;
+        break;
+      }
+
+      // required string playerId = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_playerId:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_playerid()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+            this->playerid().data(), this->playerid().length(),
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "playerid");
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -274,6 +306,16 @@ void msgmoveRes::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->dsty(), output);
   }
 
+  // required string playerId = 4;
+  if (has_playerid()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->playerid().data(), this->playerid().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "playerid");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->playerid(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -297,6 +339,17 @@ void msgmoveRes::SerializeWithCachedSizes(
   // required float dstY = 3;
   if (has_dsty()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->dsty(), target);
+  }
+
+  // required string playerId = 4;
+  if (has_playerid()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->playerid().data(), this->playerid().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "playerid");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->playerid(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -324,6 +377,13 @@ int msgmoveRes::ByteSize() const {
     // required float dstY = 3;
     if (has_dsty()) {
       total_size += 1 + 4;
+    }
+
+    // required string playerId = 4;
+    if (has_playerid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->playerid());
     }
 
   }
@@ -362,6 +422,9 @@ void msgmoveRes::MergeFrom(const msgmoveRes& from) {
     if (from.has_dsty()) {
       set_dsty(from.dsty());
     }
+    if (from.has_playerid()) {
+      set_playerid(from.playerid());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -379,7 +442,7 @@ void msgmoveRes::CopyFrom(const msgmoveRes& from) {
 }
 
 bool msgmoveRes::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
 
   return true;
 }
@@ -389,6 +452,7 @@ void msgmoveRes::Swap(msgmoveRes* other) {
     std::swap(time_, other->time_);
     std::swap(dstx_, other->dstx_);
     std::swap(dsty_, other->dsty_);
+    std::swap(playerid_, other->playerid_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

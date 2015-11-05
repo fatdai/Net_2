@@ -77,6 +77,10 @@ void InfoLayer::keyPressed(EventKeyboard::KeyCode keycode, Event* event){
 
 bool InfoLayer::touchBegan(Touch* touch,Event* event){
     
+    if (!Game->isGameStarted()) {
+        return false;
+    }
+    
     auto point = touch->getLocation();
     auto dstPoinInTmxMap = point - Game->getGameMap()->getTMXMap()->getPosition();
     auto player = Game->getPlayer();
@@ -88,6 +92,14 @@ bool InfoLayer::touchBegan(Touch* touch,Event* event){
     mm.set_ey(dstPoinInTmxMap.y);
     mm.set_speed(player->getSpeed());
     mm.set_delay(NetWorkManager::getInstance()->getDelay());
+    mm.set_playerid(player->getPlayerId());
+    
+    // for test
+    // 需要运动多长时间
+    Vec2 testDir = dstPoinInTmxMap - Vec2(player->getMx(),player->getMy());
+    float testTime = testDir.length()/player->getSpeed();
+    log("testTime : %f",testTime);
+    
     
     // 角色移动到指定地方
     Msg* msg = new Msg;
