@@ -47,7 +47,12 @@ void TestPlayer::update(float dt){
     if (dir != NONE) {
         float x = getPositionX() + dt * vx;
         float y = getPositionY() + dt * vy;
+        
         setPosition(x,y);
+        
+        //还需要计算出当前的 gridx gridy
+        gridX = x/TILED_WIDTH;
+        gridY = (TMXMAP_HEIGHT - y)/TILED_HEIGHT;
     }
 }
 

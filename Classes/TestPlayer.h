@@ -37,7 +37,7 @@ public:
     
     TestPlayer();
     ~TestPlayer();
-    static TestPlayer* createPlayer(const string& playerId,int weight,float speed = 100);
+    static TestPlayer* createPlayer(const string& playerId,int weight,float speed = 160);
     
 public:
     

@@ -26,8 +26,11 @@ bool TestGame::init(){
     }
     
     tmxMap = TMXTiledMap::create("maps/xinshoucun.tmx");
+    roadblock = tmxMap->getLayer("roadblock");
     CC_SAFE_RETAIN(tmxMap);
     addChild(tmxMap);
+    
+    genMapData();
     
     player = TestPlayer::createPlayer("id-1",5);
     player->updatePosition();
@@ -43,6 +46,94 @@ bool TestGame::init(){
     return true;
 }
 
+void TestGame::genMapData(){
+  //  memset(mapdata,0,sizeof(char) * TMX_W * TMX_H);
+    
+    for (int i = 0; i < TMX_H; ++i) {
+        for (int j = 0; j < TMX_W; ++j) {
+            if (isCollidable(j,i)) {
+                mapdata[j][i] = 1;
+            }else{
+                mapdata[j][i] = 0;
+            }
+        }
+    }
+    
+    // for test
+    for (int i = 0; i < TMX_H; ++i) {
+        for (int j = 0; j < TMX_W; ++j){
+            printf("%d  ",mapdata[j][i]);
+        }
+        printf("\n");
+    }
+    
+    pfparam.width = TMX_W;
+    pfparam.height = TMX_H;
+    pfparam.allow_corner = true;
+    pfparam.is_canreach = [&](const pf::AStar::Vec2 &pos)->bool
+    {
+        return mapdata[pos.x][pos.y] == 0;
+    };
+}
+
+void TestGame::startSearch(int sx,int sy,int ex,int ey){
+    log("开始位置:%d,%d; 目标位置:%d,%d",sx,sy,ex,ey);
+    pfparam.start = pf::AStar::Vec2(sx,sy);
+    pfparam.end = pf::AStar::Vec2(ex,ey);
+    auto path = aStar.search(pfparam);
+    if (path.empty()) {
+        log("路径未找到.....");
+    }else{
+        log("找到路径.....,路径为");
+        
+        auto oldAction = player->getActionByTag(111);
+        if (oldAction) {
+            player->getActionManager()->removeAction(oldAction);
+        }
+        
+        Vector<FiniteTimeAction*> moveActions;
+        for (int i = 0; i < path.size(); ++i) {
+            auto& v = path[i];
+            //            log("x:%d,y:%d",v.x,v.y);
+            
+            auto move = MoveTo::create(0.2f,getPointInMapByTileXY(v.x,v.y));
+            moveActions.pushBack(move);
+        }
+        
+        // 运动过去
+        
+        auto cb = CallFuncN::create([](Node* node){
+            auto p = (TestPlayer*)node;
+            p->gridX = node->getPositionX()/TILED_WIDTH;
+            p->gridY = (TMXMAP_HEIGHT - node->getPositionY())/TILED_HEIGHT;
+        });
+        moveActions.pushBack(cb);
+        auto seq = Sequence::create(moveActions);
+        seq->setTag(111);
+        player->runAction(seq);
+    }
+}
+
+Point TestGame::getPointInMapByTileXY(int tiledx,int tiledy){
+    float x = TILED_WIDTH * tiledx + TILED_WIDTH / 2;
+    float y = TMXMAP_HEIGHT - tiledy * TILED_HEIGHT - TILED_HEIGHT/2;
+    return Point(x,y);
+}
+
+bool TestGame::isCollidable(int tileX,int tileY){
+    uint32_t gid = roadblock->getTileGIDAt(Vec2(tileX,tileY));
+    if (gid) {
+        auto value = tmxMap->getPropertiesForGID(gid);
+        if (!value.isNull()) {
+            auto& valueMap = value.asValueMap();
+            if (valueMap["collision"].asString() == "true") {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 //void TestGame::addkeyboardListener(){
 //    auto keyListener = EventListenerKeyboard::create();
 //    keyListener->onKeyPressed = CC_CALLBACK_2(TestGame::keyPressed,this);
@@ -53,12 +144,12 @@ void TestGame::addTouchListener(){
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
     listener->onTouchBegan = CC_CALLBACK_2(TestGame::touchBegan,this);
+    listener->onTouchMoved = CC_CALLBACK_2(TestGame::touchMove,this);
     listener->onTouchEnded = CC_CALLBACK_2(TestGame::touchEnd,this);
     getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 }
 
-bool TestGame::touchBegan(Touch* touch,Event* event){
-    auto p = touch->getLocation();
+void TestGame::setMoveDir(const Point& p){
     auto v = tmxMap->getAnchorPoint();
     auto pInScreen = player->getPosition() + tmxMap->getPosition();
     Vec2 dir;
@@ -95,7 +186,26 @@ bool TestGame::touchBegan(Touch* touch,Event* event){
         log("moveLeftDown...");
         player->moveLeftDown();
     }
+}
+
+bool TestGame::touchBegan(Touch* touch,Event* event){
+    
+    player->gridX = player->getPositionX()/TILED_WIDTH;
+    player->gridY = (TMXMAP_HEIGHT - player->getPositionY())/TILED_HEIGHT;
+    
+    // for test
+    auto p = touch->getLocation() - tmxMap->getPosition();
+    int ex = (int)(p.x/TILED_WIDTH);
+    int ey = (int)((TMXMAP_HEIGHT - p.y)/TILED_HEIGHT);
+    
+    startSearch(player->gridX,player->gridY,ex,ey);
+    
+    //setMoveDir(touch->getLocation());
     return true;
+}
+
+void TestGame::touchMove(Touch* touch,Event* event){
+    //setMoveDir(touch->getLocation());
 }
 
 void TestGame::touchEnd(Touch* touch,Event* event){
