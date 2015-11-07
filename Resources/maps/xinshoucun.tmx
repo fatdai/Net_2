@@ -6,6 +6,9 @@
  <tileset firstgid="7" name="ground_2" tilewidth="32" tileheight="32" tilecount="6">
   <image source="ground_2.png" width="64" height="96"/>
  </tileset>
+ <tileset firstgid="13" name="block1" tilewidth="32" tileheight="32" tilecount="6">
+  <image source="block1.png" width="64" height="96"/>
+ </tileset>
  <layer name="ground" width="40" height="30">
   <data encoding="base64" compression="zlib">
    eJzt0KENADAMxMBIabv/yM0GgW9gYJlfV9WZGvo7PfDTPvrpR3DSTz/i0z766Udw0k8/4tM++ulHcNJPP+LTPts/jbwVGQ==
@@ -13,7 +16,8 @@
  </layer>
  <layer name="border" width="40" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt2LEJACAMBdF02X9jF7BQr8hH7kHqXBXErqoOn1T2MfYx9jHpd+hmr337nfa9s4+xj7GPsY/56X0wwT7GPsY+Zvrf52QWWo0EmQ==
+   eJztmEEKACAIBL156v/f7QWGtVqGO+CphYZEqFREtHhVpYPfCKhMP5QOfhG9yvZD97LW6efP0Q/LVfDbne+bfifQD4N+GJxff45+WK6zX8T9NMsvil/9rLOv8D5aQT+M1/8+npqXcQm3
   </data>
  </layer>
+ <objectgroup name="blocks"/>
 </map>

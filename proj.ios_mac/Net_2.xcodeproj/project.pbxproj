@@ -34,6 +34,20 @@
 		236BCB8D1BE3C3E000697881 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 236BCB8B1BE3C3E000697881 /* images */; };
 		236BCB921BE3CB4900697881 /* ZCButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 236BCB901BE3CB4900697881 /* ZCButton.cpp */; };
 		236BCB931BE3CB4900697881 /* ZCButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 236BCB901BE3CB4900697881 /* ZCButton.cpp */; };
+		2370D4DB1BEB97B400936159 /* BroadcastHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2370D4D31BEB97B400936159 /* BroadcastHandler.cpp */; };
+		2370D4DC1BEB97B400936159 /* BroadcastHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2370D4D31BEB97B400936159 /* BroadcastHandler.cpp */; };
+		2370D4DD1BEB97B400936159 /* GameHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2370D4D51BEB97B400936159 /* GameHandler.cpp */; };
+		2370D4DE1BEB97B400936159 /* GameHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2370D4D51BEB97B400936159 /* GameHandler.cpp */; };
+		2370D4DF1BEB97B400936159 /* LoginHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2370D4D71BEB97B400936159 /* LoginHandler.cpp */; };
+		2370D4E01BEB97B400936159 /* LoginHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2370D4D71BEB97B400936159 /* LoginHandler.cpp */; };
+		2370D4E11BEB97B400936159 /* SystemHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2370D4D91BEB97B400936159 /* SystemHandler.cpp */; };
+		2370D4E21BEB97B400936159 /* SystemHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2370D4D91BEB97B400936159 /* SystemHandler.cpp */; };
+		2370D5071BECFB3600936159 /* msgdelay.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2370D5051BECFB3600936159 /* msgdelay.pb.cc */; };
+		2370D5081BECFB3600936159 /* msgdelay.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2370D5051BECFB3600936159 /* msgdelay.pb.cc */; };
+		2370D50E1BECFB7000936159 /* TestGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2370D50C1BECFB7000936159 /* TestGame.cpp */; };
+		2370D50F1BECFB7000936159 /* TestGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2370D50C1BECFB7000936159 /* TestGame.cpp */; };
+		2370D5121BECFC9700936159 /* TestPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2370D5101BECFC9700936159 /* TestPlayer.cpp */; };
+		2370D5131BECFC9700936159 /* TestPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2370D5101BECFC9700936159 /* TestPlayer.cpp */; };
 		2382BD491BE7845A0029156B /* BaseSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382BD3E1BE7845A0029156B /* BaseSocket.cpp */; };
 		2382BD4A1BE7845A0029156B /* BaseSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382BD3E1BE7845A0029156B /* BaseSocket.cpp */; };
 		2382BD4B1BE7845A0029156B /* MsgDispatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382BD411BE7845A0029156B /* MsgDispatch.cpp */; };
@@ -276,6 +290,20 @@
 		236BCB8B1BE3C3E000697881 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		236BCB901BE3CB4900697881 /* ZCButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ZCButton.cpp; sourceTree = "<group>"; };
 		236BCB911BE3CB4900697881 /* ZCButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCButton.h; sourceTree = "<group>"; };
+		2370D4D31BEB97B400936159 /* BroadcastHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BroadcastHandler.cpp; path = ../Classes/BroadcastHandler.cpp; sourceTree = "<group>"; };
+		2370D4D41BEB97B400936159 /* BroadcastHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BroadcastHandler.h; path = ../Classes/BroadcastHandler.h; sourceTree = "<group>"; };
+		2370D4D51BEB97B400936159 /* GameHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameHandler.cpp; path = ../Classes/GameHandler.cpp; sourceTree = "<group>"; };
+		2370D4D61BEB97B400936159 /* GameHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameHandler.h; path = ../Classes/GameHandler.h; sourceTree = "<group>"; };
+		2370D4D71BEB97B400936159 /* LoginHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LoginHandler.cpp; path = ../Classes/LoginHandler.cpp; sourceTree = "<group>"; };
+		2370D4D81BEB97B400936159 /* LoginHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginHandler.h; path = ../Classes/LoginHandler.h; sourceTree = "<group>"; };
+		2370D4D91BEB97B400936159 /* SystemHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SystemHandler.cpp; path = ../Classes/SystemHandler.cpp; sourceTree = "<group>"; };
+		2370D4DA1BEB97B400936159 /* SystemHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemHandler.h; path = ../Classes/SystemHandler.h; sourceTree = "<group>"; };
+		2370D5051BECFB3600936159 /* msgdelay.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = msgdelay.pb.cc; path = ../../Classes/message/msgdelay.pb.cc; sourceTree = "<group>"; };
+		2370D5061BECFB3600936159 /* msgdelay.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = msgdelay.pb.h; path = ../../Classes/message/msgdelay.pb.h; sourceTree = "<group>"; };
+		2370D50C1BECFB7000936159 /* TestGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestGame.cpp; path = ../Classes/TestGame.cpp; sourceTree = "<group>"; };
+		2370D50D1BECFB7000936159 /* TestGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestGame.h; path = ../Classes/TestGame.h; sourceTree = "<group>"; };
+		2370D5101BECFC9700936159 /* TestPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestPlayer.cpp; path = ../Classes/TestPlayer.cpp; sourceTree = "<group>"; };
+		2370D5111BECFC9700936159 /* TestPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestPlayer.h; path = ../Classes/TestPlayer.h; sourceTree = "<group>"; };
 		2382BD3E1BE7845A0029156B /* BaseSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseSocket.cpp; sourceTree = "<group>"; };
 		2382BD3F1BE7845A0029156B /* BaseSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseSocket.h; sourceTree = "<group>"; };
 		2382BD401BE7845A0029156B /* Msg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Msg.h; sourceTree = "<group>"; };
@@ -474,6 +502,7 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2370D50B1BECFB6300936159 /* test */,
 				23C9FA2C1BE7AF4A00170B96 /* config */,
 				23C9FA271BE7AEC000170B96 /* game */,
 				2382BD651BE7920E0029156B /* google */,
@@ -539,6 +568,9 @@
 		236BCC441BE64B1500697881 /* net */ = {
 			isa = PBXGroup;
 			children = (
+				2370D4E51BEB97B700936159 /* handler */,
+				2370D4D91BEB97B400936159 /* SystemHandler.cpp */,
+				2370D4DA1BEB97B400936159 /* SystemHandler.h */,
 				2382BD3E1BE7845A0029156B /* BaseSocket.cpp */,
 				2382BD3F1BE7845A0029156B /* BaseSocket.h */,
 				2382BD401BE7845A0029156B /* Msg.h */,
@@ -554,9 +586,35 @@
 			name = net;
 			sourceTree = "<group>";
 		};
+		2370D4E51BEB97B700936159 /* handler */ = {
+			isa = PBXGroup;
+			children = (
+				2370D4D31BEB97B400936159 /* BroadcastHandler.cpp */,
+				2370D4D41BEB97B400936159 /* BroadcastHandler.h */,
+				2370D4D51BEB97B400936159 /* GameHandler.cpp */,
+				2370D4D61BEB97B400936159 /* GameHandler.h */,
+				2370D4D71BEB97B400936159 /* LoginHandler.cpp */,
+				2370D4D81BEB97B400936159 /* LoginHandler.h */,
+			);
+			name = handler;
+			sourceTree = "<group>";
+		};
+		2370D50B1BECFB6300936159 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				2370D50C1BECFB7000936159 /* TestGame.cpp */,
+				2370D50D1BECFB7000936159 /* TestGame.h */,
+				2370D5101BECFC9700936159 /* TestPlayer.cpp */,
+				2370D5111BECFC9700936159 /* TestPlayer.h */,
+			);
+			name = test;
+			sourceTree = "<group>";
+		};
 		2382BD581BE791A90029156B /* message */ = {
 			isa = PBXGroup;
 			children = (
+				2370D5051BECFB3600936159 /* msgdelay.pb.cc */,
+				2370D5061BECFB3600936159 /* msgdelay.pb.h */,
 				23567FD11BEA536000FD98DF /* msgmoveRes.pb.cc */,
 				23567FD21BEA536000FD98DF /* msgmoveRes.pb.h */,
 				23567FCB1BEA3BC500FD98DF /* msgmove.pb.cc */,
@@ -1025,15 +1083,22 @@
 				23C9FA531BE9048200170B96 /* Utility.cpp in Sources */,
 				23C9FA581BE9ACB100170B96 /* Player.cpp in Sources */,
 				2382BD4F1BE7845A0029156B /* SocketManager.cpp in Sources */,
+				2370D4DB1BEB97B400936159 /* BroadcastHandler.cpp in Sources */,
+				2370D4E11BEB97B400936159 /* SystemHandler.cpp in Sources */,
 				23C9FA301BE7B0C000170B96 /* InfoLayer.cpp in Sources */,
+				2370D50E1BECFB7000936159 /* TestGame.cpp in Sources */,
+				2370D4DF1BEB97B400936159 /* LoginHandler.cpp in Sources */,
 				236BCB921BE3CB4900697881 /* ZCButton.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				2382BD491BE7845A0029156B /* BaseSocket.cpp in Sources */,
 				23C9FA231BE7AE7C00170B96 /* GameScene.cpp in Sources */,
+				2370D5121BECFC9700936159 /* TestPlayer.cpp in Sources */,
 				23C9FA4F1BE9041B00170B96 /* msguser.pb.cc in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
+				2370D4DD1BEB97B400936159 /* GameHandler.cpp in Sources */,
 				2382BD4B1BE7845A0029156B /* MsgDispatch.cpp in Sources */,
 				2382BD4D1BE7845A0029156B /* NetWorkManager.cpp in Sources */,
+				2370D5071BECFB3600936159 /* msgdelay.pb.cc in Sources */,
 				23567FCD1BEA3BC500FD98DF /* msgmove.pb.cc in Sources */,
 				23C9FA2A1BE7AED500170B96 /* GameMap.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
@@ -1052,6 +1117,8 @@
 				5087E75717EB910900C73F5D /* AppDelegate.cpp in Sources */,
 				2382BD4C1BE7845A0029156B /* MsgDispatch.cpp in Sources */,
 				5087E75817EB910900C73F5D /* HelloWorldScene.cpp in Sources */,
+				2370D4DE1BEB97B400936159 /* GameHandler.cpp in Sources */,
+				2370D4E01BEB97B400936159 /* LoginHandler.cpp in Sources */,
 				23C9FA2B1BE7AED500170B96 /* GameMap.cpp in Sources */,
 				236BCB931BE3CB4900697881 /* ZCButton.cpp in Sources */,
 				2382BD501BE7845A0029156B /* SocketManager.cpp in Sources */,
@@ -1061,11 +1128,16 @@
 				23567FD41BEA536000FD98DF /* msgmoveRes.pb.cc in Sources */,
 				23C9FA4E1BE9041B00170B96 /* msgplayer.pb.cc in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
+				2370D50F1BECFB7000936159 /* TestGame.cpp in Sources */,
 				236BCB881BE3AFA200697881 /* Login.cpp in Sources */,
+				2370D5131BECFC9700936159 /* TestPlayer.cpp in Sources */,
 				23C9FA311BE7B0C000170B96 /* InfoLayer.cpp in Sources */,
 				23C9FA541BE9048200170B96 /* Utility.cpp in Sources */,
 				23C9FA241BE7AE7C00170B96 /* GameScene.cpp in Sources */,
+				2370D4E21BEB97B400936159 /* SystemHandler.cpp in Sources */,
+				2370D4DC1BEB97B400936159 /* BroadcastHandler.cpp in Sources */,
 				2382BD4A1BE7845A0029156B /* BaseSocket.cpp in Sources */,
+				2370D5081BECFB3600936159 /* msgdelay.pb.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

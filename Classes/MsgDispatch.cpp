@@ -30,7 +30,20 @@ MsgDispatch::MsgDispatch()
 }
 
 MsgDispatch::~MsgDispatch(){
+    if (_loginHandler) {
+        delete _loginHandler;
+        _loginHandler = nullptr;
+    }
     
+    if (_systemHandler) {
+        delete _systemHandler;
+        _systemHandler = nullptr;
+    }
+    
+    if (_broadcastHandler) {
+        delete _broadcastHandler;
+        _broadcastHandler = nullptr;
+    }
 }
 
 MsgDispatch* MsgDispatch::getInstance(){
@@ -46,20 +59,22 @@ void MsgDispatch::dispatchMsg(Msg* msg){
     
     // 1-200 为整个游戏系统相关的消息
     if (cmdCode < 200) {
-        
+        _systemHandler->onReceiveMsg(msg);
+    }else if(cmdCode < 400){
+        _gameHandler->onReceiveMsg(msg);
     }
     
-    
-    if (cmdCode == CMD_TEST_DELAY) {
-        NetWorkManager::getInstance()->calculateDelay();
-        return;
-    }
-    
-    if (_handler == nullptr) {
-        log("%s:%d,No Handlers.",__FILE__,__LINE__);
-        return;
-    }
-    _handler->onReceiveMsg(msg);
+//    
+//    if (cmdCode == CMD_TEST_DELAY) {
+//        NetWorkManager::getInstance()->calculateDelay();
+//        return;
+//    }
+//    
+//    if (_handler == nullptr) {
+//        log("%s:%d,No Handlers.",__FILE__,__LINE__);
+//        return;
+//    }
+//    _handler->onReceiveMsg(msg);
 }
 
 //void MsgDispatch::registMsg(MsgHandler* handler){

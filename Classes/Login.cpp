@@ -14,10 +14,12 @@
 #include "CmdCode.h"
 #include "GameScene.h"
 #include "MsgDispatch.h"
+#include "GameConfig.h"
 #include "Utility.h"
 #include "Resources.h"
 #include "msguser.pb.h"
 #include "msgplayer.pb.h"
+#include "TestGame.h"
 using namespace proto;
 
 Login::Login():
@@ -50,8 +52,9 @@ bool Login::init(){
     cache->addImage(IMG_ball_7);
     
     
-    MsgDispatch::getInstance()->registMsg(this);
-    NetWorkManager::getInstance()->init();
+    if (NetEnable) {
+        NetWorkManager::getInstance()->init();
+    }
     
     // top
     Size editBoxSize(300,60);
@@ -87,20 +90,16 @@ bool Login::init(){
     login->setPosition(240,80);
     addChild(login);
     login->addClickListener([=](ZCButton* btn){
-        log("name:%s",_name.c_str());
-        log("pwd:%s",_pwd.c_str());
-
-        this->startLogin();
         
-        // for test
-//        msgplayer mp;
-//        mp.set_name("lisi");
-//        mp.set_x(10);
-//        mp.set_y(10);
-//        mp.set_weight(10);
-//        auto scene = GameScene::createGameScene(mp);
-//        Director::getInstance()->replaceScene(scene);
-        
+        if (NetEnable) {
+            this->startLogin();
+        }else{
+            // 直接到GameScene
+            auto scene = Scene::create();
+            auto layer = TestGame::create();
+            scene->addChild(layer);
+            Director::getInstance()->replaceScene(scene);
+        }
     });
     
     

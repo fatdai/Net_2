@@ -68,7 +68,7 @@ bool GameScene::init(){
     
     _gameScene = this;
     
-    MsgDispatch::getInstance()->registMsg(this);
+  //  MsgDispatch::getInstance()->registMsg(this);
     
     _gameMap = GameMap::create();
     CC_SAFE_RETAIN(_gameMap);
