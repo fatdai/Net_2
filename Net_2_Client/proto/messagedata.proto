@@ -1,0 +1,30 @@
+package proto;
+
+// 账户
+message msguser{
+	required string username = 1;
+	required string password = 2;
+};
+
+
+// 怪物
+message msgmonster{
+	required int32 monsterId = 1;
+	required string name = 2;
+	required int32 gridx = 3;
+	required int32 gridy = 4;
+	optional int32 damage = 5;
+	optional int32 addition = 6;
+};
+
+
+// 玩家
+message msgplayer{
+	required string name = 1;
+	required int32 gridx = 2;
+	required int32 gridy = 3;
+	required int32 weight = 4; 
+	required int32 playerId = 5;
+	repeated msgplayer others = 6;
+	repeated msgmonster monsters = 7;
+};

@@ -18,7 +18,7 @@ using namespace cocos2d;
 using namespace extension;
 using namespace std;
 
-class Login : public Layer,public EditBoxDelegate,public MsgHandler{
+class Login : public Layer,public EditBoxDelegate{
 
 public:
     
@@ -26,19 +26,11 @@ public:
     ~Login();
     CREATE_FUNC(Login);
    
-    
     virtual bool init() override;
     
-    //
-//    virtual void editBoxEditingDidBegin(cocos2d::extension::EditBox* editBox);
-//    virtual void editBoxEditingDidEnd(cocos2d::extension::EditBox* editBox);
     virtual void editBoxTextChanged(cocos2d::extension::EditBox* editBox, const std::string& text);
     virtual void editBoxReturn(cocos2d::extension::EditBox* editBox){};
-    
-    
-    // MsgHandler
-    virtual void onReceiveMsg(Msg* msg);
-    
+
 private:
     
     void startLogin();

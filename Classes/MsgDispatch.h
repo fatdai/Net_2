@@ -16,10 +16,6 @@ using namespace cocos2d;
 using namespace std;
 
 
-class LoginHandler;
-class GameHandler;
-class SystemHandler;
-class BroadcastHandler;
 class Msg;
 class MsgHandler;
 
@@ -28,21 +24,20 @@ class MsgDispatch{
     MsgDispatch();
     
 public:
+    
     ~MsgDispatch();
+    
     static MsgDispatch* getInstance();
     
     void dispatchMsg(Msg* msg);
     
-//    void registMsg(MsgHandler* handler);
-
+    void regist(MsgHandler* handler);
+    
 private:
     
     static MsgDispatch* _dispatch;
     
-    LoginHandler* _loginHandler;
-    GameHandler* _gameHandler;
-    SystemHandler* _systemHandler;
-    BroadcastHandler* _broadcastHandler;
+    MsgHandler* _handler;
 };
 
 #endif /* defined(__Net_1__MsgDispatch__) */

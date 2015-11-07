@@ -40,22 +40,6 @@ bool Login::init(){
         return false;
     }
     
-    // 加载所有游戏资源
-    auto cache = Director::getInstance()->getTextureCache();
-    cache->addImage(IMG_player);
-    cache->addImage(IMG_ball_1);
-    cache->addImage(IMG_ball_2);
-    cache->addImage(IMG_ball_3);
-    cache->addImage(IMG_ball_4);
-    cache->addImage(IMG_ball_5);
-    cache->addImage(IMG_ball_6);
-    cache->addImage(IMG_ball_7);
-    
-    
-    if (NetEnable) {
-        NetWorkManager::getInstance()->init();
-    }
-    
     // top
     Size editBoxSize(300,60);
     _editName = EditBox::create(editBoxSize,Scale9Sprite::create("images/green_edit.png"));
@@ -90,71 +74,61 @@ bool Login::init(){
     login->setPosition(240,80);
     addChild(login);
     login->addClickListener([=](ZCButton* btn){
-        
-        if (NetEnable) {
-            this->startLogin();
-        }else{
-            // 直接到GameScene
-            auto scene = Scene::create();
-            auto layer = TestGame::create();
-            scene->addChild(layer);
-            Director::getInstance()->replaceScene(scene);
-        }
+        this->startLogin();
     });
-    
     
     return true;
 }
 
-void Login::onReceiveMsg(Msg* msg){
-    
-    int cmdCode = msg->cmdCode;
-    if (cmdCode == CMD_USER_ALREADY_EXIST) {
-        delete msg;
-        Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
-            ShowToast("用户已存在!",3);
-        });
-        return;
-    }
-    
-    if (cmdCode == CMD_NEW_USER_LOGIN_SUCCESS) {
-        
-        msgplayer p;
-        if (!p.ParseFromArray(msg->data,msg->length)) {
-            log("%s:%d, parse msgplayer error.",__FILE__,__LINE__);
-            delete msg;
-            return;
-        }
-        
-        Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
-            auto scene = GameScene::createGameScene(p);
-            Director::getInstance()->replaceScene(scene);
-            log("新用户登录成功,用户名为:%s",p.name().c_str());
-        });
-    }else if (cmdCode == CMD_OLD_USER_LOGIN_SUCCESS){
-        
-        msgplayer p;
-        if (!p.ParseFromArray(msg->data,msg->length)) {
-            log("%s:%d, parse msgplayer error.",__FILE__,__LINE__);
-            delete msg;
-            return;
-        }
-        
-        Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
-            log("老用户登录成功");
-            auto scene = GameScene::createGameScene(p);
-            Director::getInstance()->replaceScene(scene);
-        });
-    }else{
-        char buf[64];
-        sprintf(buf,"未处理的名字:%d\n",cmdCode);
-        Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
-            ShowToast(buf,3);
-        });
-        delete msg;
-    }
-}
-
+//void Login::onReceiveMsg(Msg* msg){
+//    
+//    int cmdCode = msg->cmdCode;
+//    if (cmdCode == CMD_USER_ALREADY_EXIST) {
+//        delete msg;
+//        Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
+//            ShowToast("用户已存在!",3);
+//        });
+//        return;
+//    }
+//    
+//    if (cmdCode == CMD_NEW_USER_LOGIN_SUCCESS) {
+//        
+//        msgplayer p;
+//        if (!p.ParseFromArray(msg->data,msg->length)) {
+//            log("%s:%d, parse msgplayer error.",__FILE__,__LINE__);
+//            delete msg;
+//            return;
+//        }
+//        
+//        Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
+//            auto scene = GameScene::createGameScene(p);
+//            Director::getInstance()->replaceScene(scene);
+//            log("新用户登录成功,用户名为:%s",p.name().c_str());
+//        });
+//    }else if (cmdCode == CMD_OLD_USER_LOGIN_SUCCESS){
+//        
+//        msgplayer p;
+//        if (!p.ParseFromArray(msg->data,msg->length)) {
+//            log("%s:%d, parse msgplayer error.",__FILE__,__LINE__);
+//            delete msg;
+//            return;
+//        }
+//        
+//        Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
+//            log("老用户登录成功");
+//            auto scene = GameScene::createGameScene(p);
+//            Director::getInstance()->replaceScene(scene);
+//        });
+//    }else{
+//        char buf[64];
+//        sprintf(buf,"未处理的名字:%d\n",cmdCode);
+//        Director::getInstance()->getScheduler()->performFunctionInCocosThread([=](){
+//            ShowToast(buf,3);
+//        });
+//        delete msg;
+//    }
+//}
+//
 void Login::startLogin(){
     
     Trim(_name);

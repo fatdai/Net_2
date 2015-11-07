@@ -10,6 +10,17 @@
 #define Net_2_CmdCode_h
 
 
+typedef enum{
+    CMD_LOGIN = 200,
+    
+} Request;
+
+
+typedef enum{
+    CMD_LOGIN_SUCCESS = 1001,
+    
+} Response;
+
 // 定义一些 CmdCode
 // 注意和服务端一致
 // ------------------------------------------------------
@@ -17,7 +28,7 @@
 //
 // 请求的CmdCode,从200开始
 // 登陆请求
-const static short CMD_LOGIN = 200;
+//const static short CMD_LOGIN = 200;
 
 const static short CMD_MOVE = 201;
 

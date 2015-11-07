@@ -1,7 +1,0 @@
-package proto;
-
-message msgmoveRes{
-	required float time = 1;
-	required float dstX = 2;
-	required float dstY = 3;
-};

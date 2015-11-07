@@ -25,7 +25,7 @@ const static float TMXMAP_HEIGHT = 960;
 const static int TMX_W = 40;
 const static int TMX_H = 30;
 
-#define NetEnable 0
+//#define NetEnable 1
 
 // 存放一些全局变量
 //class GameConfig{
